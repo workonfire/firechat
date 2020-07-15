@@ -39,7 +39,8 @@ if (!strpos($room->topic, "wzium")) die("W tym miejscu nie możesz wziumować.")
 #### Wyrzucanie użytkownika
 ```php
 $user->setOnline(0);
-die("Zostałeś wyrzucony z kanału.");
+$user->setRoom(null);
+die("Zostałeś wyrzucony z pokoju.");
 ```
 
 #### Rejestracja użytkownika i powiadamianie osób online

@@ -9,6 +9,8 @@
 
 define('VERSION', '2.0.0-alpha');
 
+// TODO: Jakieś tam zabezpieczenia
+
 require "core/util.php";
 require_once "api/PushConnection.php";
 require_once "api/MessageBuilder.php";
@@ -29,7 +31,7 @@ $user = new User($gg_number);
 
 if (!$user->exists) {
     if ($PushConnection->isBot($gg_number))
-        finalMessage("⛔ Rejestracja zakończyła się niepowodzeniem.", null, "PULL", "ERROR");
+        finalMessage("Rejestracja zakończyła się niepowodzeniem.", null, "PULL", "ERROR");
     registerNewUser($gg_number);
     sendMessage("Użytkownik {$gg_number} zarejestrował się na czacie.", getOnlineUsers(new Room('main')), "PUSH");
     finalMessage("Rejestracja przebiegła pomyślnie. Użyj komendy /join, by się zalogować.", null, "PULL", "INFO");
