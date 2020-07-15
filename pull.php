@@ -31,9 +31,10 @@ $user = new User($gg_number);
 
 if (!$user->exists) {
     if ($PushConnection->isBot($gg_number))
-        finalMessage("Rejestracja zakończyła się niepowodzeniem.", null, "PULL", "ERROR");
+        finalMessage("Rejestracja zakończyła się niepowodzeniem. Jesteś botem!", null, "PULL", "ERROR");
     registerNewUser($gg_number);
-    sendMessage("Użytkownik {$gg_number} zarejestrował się na czacie.", getOnlineUsers(new Room('main')), "PUSH");
+    $user = new User($gg_number);
+    sendMessage("Użytkownik {$user->nick} zarejestrował się na czacie.", getOnlineUsers(new Room('main')), "PUSH");
     finalMessage("Rejestracja przebiegła pomyślnie. Użyj komendy /join, by się zalogować.", null, "PULL", "INFO");
 }
 
@@ -48,6 +49,7 @@ else {
     $command_shortcuts = include "core/command_shortcuts.php";
     if (in_array($command, $command_shortcuts)) $command = array_search($command, $command_shortcuts);
     $command_path = "core/commands/{$command}.php";
+    if ($command == '') finalMessage("Podaj nazwę komendy.", null, "PULL", "WARN");
     if (file_exists($command_path)) include $command_path;
     else finalMessage("Komenda /{$command} nie istnieje.", null, "PULL", "WARN");
 }

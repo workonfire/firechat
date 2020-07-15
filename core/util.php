@@ -92,7 +92,6 @@ function getOnlineUsers($room) {
  * @param string $room pokój, w którym ma znaleźć się użytkownik
  */
 function registerNewUser($gg_number, $nick = '', $online = 0, $global_group = 'default', $room = '') {
-    #TODO: opcja $silent i powiadamianie administracji
     if ($nick == '') $nick = "USER_" . rand(10000, 99999);
     extract($GLOBALS);
     $db->query("INSERT INTO `users` (`gg`, `nick`, `online`, `room`) VALUES ({$gg_number}, '{$nick}', {$online}, '{$room}')");
@@ -108,6 +107,20 @@ function registerNewUser($gg_number, $nick = '', $online = 0, $global_group = 'd
  * @param string $permission nazwa uprawnienia
  */
 function requirePermission($user, $permission) {
-    if (!$user->hasPermission($permission))
-        finalMessage("Nie posiadasz wystarczających uprawnień do wykonania tej komendy.", null, "PULL", "ERROR");
+    if (!$user->hasPermission($permission)) {
+        sendMessage("Nie posiadasz wystarczających uprawnień do wykonania tej komendy.", null, "PULL", "ERROR");
+        debugMessage("Brakujące pozwolenie: {$permission}");
+        die;
+    }
+}
+
+/**
+ * Sprawdza po nicku, czy dany użytkownik istnieje w bazie danych.
+ *
+ * @param string $nick nazwa użytkownika
+ * @return bool true, jeśli istnieje
+ */
+function userExists($nick) {
+    extract($GLOBALS);
+    return $db->query("SELECT * FROM `users` WHERE `nick` LIKE '{$nick}'")->num_rows >= 1;
 }

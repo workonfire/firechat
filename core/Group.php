@@ -57,4 +57,15 @@ class Group {
         }
         else debugMessage("Uprawnienie {$permission} nie istnieje w grupie {$this->name}, aczkolwiek próbowano je usunąć.");
     }
+
+    /**
+     * Ustawia przedrostek grupy.
+     *
+     * @param string $prefix przedrostek
+     */
+    function setPrefix($prefix) {
+        extract($GLOBALS);
+        $db->query("UPDATE `groups` SET `prefix` = '{$prefix}' WHERE `name` = {$this->name}");
+        $this->prefix = $prefix;
+    }
 }

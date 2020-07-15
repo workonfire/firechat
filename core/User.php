@@ -48,6 +48,17 @@ class User {
     }
 
     /**
+     * Ustawia nick użytkownikowi.
+     *
+     * @param string $nick
+     */
+    function setNick($nick) {
+        extract($GLOBALS);
+        $db->query("UPDATE `users` SET `nick` = '{$nick}' WHERE `gg` = {$this->gg_number}");
+        $this->nick = $nick;
+    }
+
+    /**
      * Sprawdza, czy użytkownik posiada wskazane uprawnienie.
      *
      * @param string $permission nazwa uprawnienia
@@ -55,5 +66,15 @@ class User {
      */
     function hasPermission($permission) {
         return $this->group->isPermission($permission);
+    }
+
+    /**
+     * Usuwa użytkownika z bazy danych.
+     */
+    function unregister() {
+        extract($GLOBALS);
+        $db->query("DELETE FROM `users` WHERE `gg` = {$this->gg_number}");
+        $db->query("DELETE FROM `room_groups` WHERE `gg` = {$this->gg_number}");
+        $db->query("DELETE FROM `rooms` WHERE `owner` = {$this->gg_number}");
     }
 }

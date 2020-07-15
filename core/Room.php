@@ -18,5 +18,36 @@ class Room {
         }
     }
 
-    // TODO: Funkcje setOwner() i takie tam
+    /**
+     * Ustawia nazwę pokoju.
+     *
+     * @param string $name nazwa
+     */
+    function setName($name) {
+        extract($GLOBALS);
+        $db->query("UPDATE `rooms` SET `name` = '{$name}' WHERE `name` = {$this->name}");
+        $this->name = $name;
+    }
+
+    /**
+     * Ustawia właściciela pokoju.
+     *
+     * @param User $user użytkownik
+     */
+    function setOwner($user) {
+        extract($GLOBALS);
+        $db->query("UPDATE `rooms` SET `owner` = {$user->gg_number} WHERE `name` = {$this->name}");
+        $this->owner = $user;
+    }
+
+    /**
+     * Ustawia temat pokoju.
+     *
+     * @param string $topic temat
+     */
+    function setTopic($topic) {
+        extract($GLOBALS);
+        $db->query("UPDATE `rooms` SET `topic` = '{$topic}' WHERE `name` = {$this->name}");
+        $this->topic = $topic;
+    }
 }

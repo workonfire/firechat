@@ -11,8 +11,9 @@ Póki co jest to sam silnik z **bardzo** okrojonymi funkcjami (choć z dużymi m
 - system grup - można przypisać użytkownika do grupy, np. `admin`
 - system uprawnień - można przypisać uprawnienia do konkretnych grup, np. `command.ban` dla `admin` itp.
 - grupa użytkownika jest zależna od pokoju
-- dostosowywalne skróty komend, np. można używać `/ver` zamiast `/version`
+- dostosowywalne skróty komend, np. można użyć `/ver` zamiast `/version`
 - obsługa BBCode w wiadomościach
+- opcjonalne wiadomości pożegnalne w `/quit`
 
 ## API
 API w obecnym stanie nie jest zbyt funkcjonalne, ale obecnie można je wykorzystać w następujący sposób, przykładowo do tworzenia własnych komend.
