@@ -23,13 +23,12 @@ class User {
     }
 
     /**
-     * Ustawia wartość "online" użytkownika. Domyślnie 1.
-     * 1 = zalogowany
-     * 0 = niezalogowany
+     * Ustawia wartość "online" użytkownika. Domyślnie true.
      *
-     * @param int $online wartość
+     * @param bool $online wartość
      */
-    function setOnline($online = 1) {
+    function setOnline($online = true) {
+        $online = $online ? 1 : 0;
         extract($GLOBALS);
         $db->query("UPDATE `users` SET `online` = {$online} WHERE `gg` = {$this->gg_number}");
         $this->online = $online;

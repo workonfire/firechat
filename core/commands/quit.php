@@ -1,6 +1,6 @@
 <?php
 
-$user->setOnline(0);
+$user->setOnline(false);
 
 if (count($arguments) != 1) {
     unset($arguments[0]);
