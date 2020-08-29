@@ -122,5 +122,5 @@ function requirePermission($user, $permission) {
  */
 function userExists($nick) {
     extract($GLOBALS);
-    return $db->query("SELECT * FROM `users` WHERE `nick` LIKE '{$nick}'")->num_rows >= 1;
+    return $db->query("SELECT * FROM `users` WHERE `nick` = '{$nick}'")->num_rows >= 1;
 }
